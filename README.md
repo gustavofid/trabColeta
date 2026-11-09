@@ -14,14 +14,14 @@ O objetivo é propor uma alternativa mais rápida e clara à ferramenta [Flood -
 | Nome | GitHub |
 |---|---|
 | Gustavo Fidelis | [@gustavofid](https://github.com/gustavofid) |
-| Leonardo Fagundes | _(usuário)_ |
-| Leonardo Mallet | _(usuário)_ |
-| Samuel Bitdinger | _(usuário)_ |
+| Leonardo Fagundes | [@leofwingert](https://github.com/leofwingert) |
+| Leonardo Mallet | [@leomallet04](https://github.com/leomallet04) |
+| Samuel Bitdinger | [@samuelb1t](https://github.com/samuelb1t) |
 
 ## Status
 
 - [x] **Fase 1 – Levantamento de bases** (28/10): [`relatorios/base_dados.pdf`](relatorios/base_dados.pdf)
-- [ ] Fase 2 – Dados limpos e EDA (09/11)
+- [x] **Fase 2 – Dados limpos e EDA** (09/11): [`relatorios/limpeza_dados.pdf`](relatorios/limpeza_dados.pdf), [`notebooks/eda.ipynb`](notebooks/eda.ipynb), wireframes em [`relatorios/wireframes/`](relatorios/wireframes/)
 - [ ] Fase 3 – Protótipo do dashboard (16/11)
 - [ ] Versão final (24/11)
 
@@ -45,9 +45,21 @@ pip install -r requirements.txt
 
 # 1. Coleta da base externa (baixa só o que ainda não existe em dados/originais/)
 python scripts/coleta_peers.py
+
+# 2. Limpeza (gera os arquivos de dados/processados/)
+python scripts/limpeza_inct.py     # precisa de dados/originais/inct/data.json
+python scripts/limpeza_peers.py
+
+# 3. Análise exploratória
+jupyter notebook notebooks/eda.ipynb
 ```
 
-Coloque o `data.json` do INCT em `dados/originais/inct/`.
+| Arquivo processado | Conteúdo |
+|---|---|
+| `dados/processados/inct_longo_limpo.csv` | Simulação do INCT limpa, uma linha por nível e bairro (6.674 linhas) |
+| `dados/processados/inct_correcoes.csv` | Cada valor corrigido: bairro, nível, regra, antes e depois |
+| `dados/processados/peers_longo.csv` | As 21 tabelas da PEERS em formato longo, com CV e IC 95% |
+| `dados/processados/peers_taxas_renda.csv` | Taxas por classe de renda usadas na Tela 2 |
 
 ## Estrutura
 
