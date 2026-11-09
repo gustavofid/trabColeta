@@ -14,9 +14,9 @@ O objetivo é propor uma alternativa mais rápida e clara à ferramenta [Flood -
 | Nome | GitHub |
 |---|---|
 | Gustavo Fidelis | [@gustavofid](https://github.com/gustavofid) |
-| Leonardo Fagundes | _(usuário)_ |
+| Leonardo Fagundes | [@leofwingert](https://github.com/leofwingert) |
 | Leonardo Mallet | _(usuário)_ |
-| Samuel Bitdinger | _(usuário)_ |
+| Samuel Bitdinger | [@samuelb1t](https://github.com/samuelb1t) |
 
 ## Status
 
