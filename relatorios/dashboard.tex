@@ -1,0 +1,134 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[a4paper,top=23mm,bottom=21mm,left=23mm,right=23mm]{geometry}
+\usepackage{booktabs,tabularx}
+\usepackage{xcolor}
+\usepackage{fancyhdr}
+\usepackage{microtype}
+\usepackage{hyperref}
+
+\definecolor{azul}{HTML}{1D4560}
+\definecolor{verde}{HTML}{176A63}
+\definecolor{cinza}{HTML}{4C5D68}
+\hypersetup{
+  colorlinks=true,linkcolor=azul,urlcolor=verde,pdflang={pt-BR},
+  pdftitle={Enchentes no Rio Grande do Sul - Relatório do dashboard},
+  pdfauthor={Gustavo Fidelis, Leonardo Fagundes, Leonardo Mallet e Samuel Bitdinger}
+}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt}
+\setlength{\headheight}{15pt}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small\color{cinza}PUCRS · Coleta, Preparação e Análise de Dados}
+\fancyhead[R]{\small\color{cinza}INCT SiMAI}
+\fancyfoot[L]{\small\color{cinza}Relatório do dashboard}
+\fancyfoot[R]{\small\thepage}
+\renewcommand{\headrulewidth}{0.3pt}
+\renewcommand{\arraystretch}{1.2}
+
+\begin{document}
+
+{\color{verde}\small\bfseries PROJETO EXTENSIONISTA · FASE 3}\par
+{\LARGE\bfseries\color{azul} Enchentes no Rio Grande do Sul}\par
+{\large Relatório do dashboard}\par
+{\small Gustavo Fidelis, Leonardo Fagundes, Leonardo Mallet e Samuel Bitdinger\par
+Prof.\textsuperscript{a} Katherine Bianchini Esper de Vargas · Novembro de 2026}
+
+\section*{\color{azul}Ponto de partida}
+O \href{http://vhlab.com.br/INCT/floods/}{Flood do INCT SiMAI} oferece uma simulação de
+prédios atingidos por bairro de Porto Alegre conforme sobe o Guaíba. O enunciado do
+projeto aponta lentidão e instabilidade no acesso à ferramenta. O painel concentra
+o nível selecionado, os totais da cidade e o detalhamento por bairro em uma tela. A
+segunda tela acrescenta informações sobre danos, interrupções de serviços e
+deslocamentos na enchente de 2024.
+
+\section*{\color{azul}Tela 1 · Simulação do Guaíba}
+\textbf{Objetivo.} Mostrar quais bairros de Porto Alegre seriam atingidos e estimar
+quantos prédios e pessoas seriam afetados em cada nível simulado.
+
+\textbf{Como usar.} Selecione um nível entre 3,0 e 10,0\,m, em passos de 0,1\,m.
+Os três indicadores mostram pessoas estimadas, prédios afetados e bairros com pelo
+menos um prédio afetado. O ranking mostra até dez bairros e pode ser ordenado por
+população estimada ou percentual de prédios afetados.
+
+\textbf{Escolha das visualizações.} As barras horizontais mostram todos os bairros
+atingidos no cenário selecionado, com espaço para os nomes e acesso à contagem de
+prédios no detalhe de cada barra. A curva usa os 71 níveis da simulação e destaca
+o ponto selecionado. O recorde de maio de 2024, 5,35\,m, fica marcado na curva. A
+estimativa nesse ponto usa interpolação linear entre 5,3 e 5,4\,m.
+
+\begin{center}
+\small
+\begin{tabular}{@{}lrrr@{}}
+\toprule
+\textbf{Nível} & \textbf{Pessoas estimadas} & \textbf{Prédios afetados} & \textbf{Bairros atingidos}\\
+\midrule
+3,0\,m & 32.119 & 14.652 & 24\\
+5,3\,m & 136.389 & 53.989 & 36\\
+10,0\,m & 271.886 & 101.219 & 54\\
+\bottomrule
+\end{tabular}
+\end{center}
+{\small\color{cinza} Cenários de referência calculados a partir do CSV tratado do INCT SiMAI.}
+
+\textbf{Limitações.} A estimativa de pessoas multiplica a população do bairro
+pela proporção de prédios afetados. Isso supõe moradores distribuídos igualmente
+entre todos os prédios, inclusive os não residenciais. Os valores descrevem
+cenários simulados. As correções do JSON original estão detalhadas no relatório de
+limpeza de dados.
+
+\newpage
+\section*{\color{azul}Tela 2 · Impactos da enchente de 2024}
+\textbf{Objetivo.} Mostrar o que aconteceu com os domicílios e moradores na área
+atingida do RS e explorar como alguns impactos e respostas variaram por faixa de
+renda domiciliar.
+
+\begin{tabularx}{\linewidth}{@{}p{0.30\linewidth}X@{}}
+\toprule
+\textbf{Visualização} & \textbf{Como usar e por que foi escolhida}\\
+\midrule
+Impactos por faixa de renda &
+Selecione um dos seis indicadores. As barras permitem comparar cinco faixas de renda.
+A linha pontilhada marca o percentual no total do universo do indicador.\\
+\addlinespace
+Ocorrências nos domicílios e no entorno &
+Alterne entre domicílio e bairro ou ruas próximas. Barras horizontais acomodam os
+nomes e permitem comparar a frequência dos relatos. A pergunta admite múltiplas respostas.\\
+\addlinespace
+Onde os moradores passaram a noite &
+Mostra o percentual entre os domicílios com alguém que passou ao menos uma noite fora.
+A cor mais clara sinaliza estimativas com coeficiente de variação acima de 15\%.\\
+\addlinespace
+Maio de 2024 nas duas fontes &
+O cartão do INCT mostra a parcela estimada da população de Porto Alegre em prédios
+atingidos a 5,35\,m. Ao lado, as barras da PEERS mostram ocorrências relatadas
+por domicílios na área pesquisada do RS. O evento de 2024 conecta as duas telas.\\
+\bottomrule
+\end{tabularx}
+
+\textbf{Limitações.} A PEERS é uma pesquisa amostral por telefone. As tabelas
+utilizadas apresentam estimativas agregadas da área pesquisada. O painel mantém
+separadas as unidades das duas fontes, pessoas em Porto Alegre na simulação e
+domicílios da área pesquisada do RS na PEERS. As barras de erro mostram
+intervalos aproximados de 95\%. Nas taxas por renda, a aproximação usa o
+coeficiente de variação do numerador e não incorpora a incerteza do denominador.
+
+\section*{\color{azul}Execução e fontes}
+Após instalar as dependências de \texttt{requirements.txt}, execute
+\texttt{python -m streamlit run app/dashboard.py} na raiz do repositório. Use as
+abas no topo para alternar entre as telas. O painel carrega os CSVs tratados
+presentes no repositório, o que dispensa novas requisições às fontes durante o uso.
+
+\textbf{INCT SiMAI.} \href{http://vhlab.com.br/INCT/floods/}{Flood e simulação de
+inundação por bairro}. JSON fornecido à equipe. Prédios do OpenStreetMap e
+população do Censo 2022/IBGE.
+
+\textbf{IBGE.}
+\href{https://ftp.ibge.gov.br/Meio_Ambiente/PEERS/2024/Abrangencia_xlsx.zip}{Pesquisa
+Especial sobre as Enchentes de 2024 no Rio Grande do Sul (PEERS)}. Tabelas 1, 4,
+5, 6, 10, 11, 17 e 19, coletadas em 09/11/2026. A data consta nos metadados do
+download registrados no repositório.
+
+\end{document}

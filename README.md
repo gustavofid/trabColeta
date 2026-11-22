@@ -22,7 +22,7 @@ O objetivo é propor uma alternativa mais rápida e clara à ferramenta [Flood -
 
 - [x] **Fase 1 – Levantamento de bases** (28/10): [`relatorios/base_dados.pdf`](relatorios/base_dados.pdf)
 - [x] **Fase 2 – Dados limpos e EDA** (09/11): [`relatorios/limpeza_dados.pdf`](relatorios/limpeza_dados.pdf), [`notebooks/eda.ipynb`](notebooks/eda.ipynb), wireframes em [`relatorios/wireframes/`](relatorios/wireframes/)
-- [ ] Fase 3 – Protótipo do dashboard (16/11)
+- [ ] **Fase 3 – Dashboard** (24/11): telas em [`app/dashboard.py`](app/dashboard.py) e relatório em [PDF](relatorios/dashboard.pdf) e [LaTeX](relatorios/dashboard.tex). Publicação e entrega pendentes.
 - [ ] Versão final (24/11)
 
 Link do dashboard: _a publicar (Streamlit Community Cloud)_
@@ -38,11 +38,18 @@ Detalhes, licenças e justificativas em [`relatorios/base_dados.pdf`](relatorios
 
 ## Como rodar
 
+As duas telas usam os CSVs tratados já incluídos no repositório. Na raiz do projeto:
+
 ```bash
 python -m venv .venv
 source .venv/bin/activate        # Windows: .venv\Scripts\activate
-pip install -r requirements.txt
+python -m pip install -r requirements.txt
+python -m streamlit run app/dashboard.py
+```
 
+Para reproduzir a coleta, o tratamento e a análise exploratória, com o ambiente ativado:
+
+```bash
 # 1. Coleta da base externa (baixa só o que ainda não existe em dados/originais/)
 python scripts/coleta_peers.py
 
@@ -61,6 +68,14 @@ jupyter notebook notebooks/eda.ipynb
 | `dados/processados/peers_longo.csv` | As 21 tabelas da PEERS em formato longo, com CV e IC 95% |
 | `dados/processados/peers_taxas_renda.csv` | Taxas por classe de renda usadas na Tela 2 |
 
+## Relatório do dashboard
+
+Com uma distribuição LaTeX instalada, rode na raiz do projeto:
+
+```bash
+pdflatex -interaction=nonstopmode -halt-on-error -output-directory=relatorios relatorios/dashboard.tex
+```
+
 ## Estrutura
 
 ```
@@ -71,7 +86,7 @@ jupyter notebook notebooks/eda.ipynb
 │   └── processados/    # dados limpos usados pelo dashboard
 ├── scripts/            # coleta e limpeza
 ├── notebooks/          # EDA
-├── relatorios/         # base_dados.pdf, limpeza_dados.pdf, dashboard.pdf
+├── relatorios/         # relatórios das fases, dashboard.tex e PDF compilado
 ├── docs/               # registro de uso de IA
 └── app/                # código do dashboard
 ```
