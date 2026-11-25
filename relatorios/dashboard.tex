@@ -59,6 +59,14 @@ prédios no detalhe de cada barra. A curva usa os 71 níveis da simulação e de
 o ponto selecionado. O recorde de maio de 2024, 5,35\,m, fica marcado na curva. A
 estimativa nesse ponto usa interpolação linear entre 5,3 e 5,4\,m.
 
+O mapa colore cada bairro pelo percentual de prédios afetados no nível escolhido
+e mostra onde os bairros atingidos se concentram; os não atingidos ficam em cinza.
+A escala usa tons de azul, fixa de 0 a 100\%, para que os cenários sejam
+comparáveis. A cor se refere aos prédios do bairro inteiro e não desenha a mancha
+de água. Os contornos são os da Lei 12.112/2016, e os nomes foram casados com os do
+INCT sem diferenciar acentos e pontuação, com duas equivalências manuais (Coronel
+Aparício Borges e Passo D'Areia).
+
 \begin{center}
 \small
 \begin{tabular}{@{}lrrr@{}}
@@ -125,6 +133,10 @@ presentes no repositório, o que dispensa novas requisições às fontes durante
 inundação por bairro}. JSON fornecido à equipe. Prédios do OpenStreetMap e
 população do Censo 2022/IBGE.
 
+\textbf{Prefeitura de Porto Alegre.}
+\href{https://gis-smamus.portoalegre.rs.gov.br/server/rest/services/01_PUBLICACOES/bairros_2016/MapServer}{Bairros
+oficiais (Lei 12.112/2016)}, servidor de mapas da SMAMUS, coletados em 24/11/2026.
+
 \textbf{IBGE.}
 \href{https://ftp.ibge.gov.br/Meio_Ambiente/PEERS/2024/Abrangencia_xlsx.zip}{Pesquisa
 Especial sobre as Enchentes de 2024 no Rio Grande do Sul (PEERS)}. Tabelas 1, 4,
@@ -134,6 +146,8 @@ download registrados no repositório.
 \section*{\color{azul}Uso de inteligência artificial}
 O código das duas telas do dashboard, implementadas em Python com Streamlit,
 foi gerado pelo ChatGPT (OpenAI) a partir dos requisitos do enunciado, dos
-wireframes e da análise exploratória da equipe.
+wireframes e da análise exploratória da equipe. O mapa dos bairros, o script
+\texttt{scripts/mapa\_bairros.py} e o texto deste relatório sobre o mapa foram
+gerados com o Claude (Anthropic).
 
 \end{document}

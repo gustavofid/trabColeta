@@ -56,6 +56,7 @@ python scripts/coleta_peers.py
 # 2. Limpeza (gera os arquivos de dados/processados/)
 python scripts/limpeza_inct.py     # precisa de dados/originais/inct/data.json
 python scripts/limpeza_peers.py
+python scripts/mapa_bairros.py     # precisa da malha em dados/originais/bairros/
 
 # 3. Análise exploratória
 jupyter notebook notebooks/eda.ipynb
@@ -67,6 +68,9 @@ jupyter notebook notebooks/eda.ipynb
 | `dados/processados/inct_correcoes.csv` | Cada valor corrigido: bairro, nível, regra, antes e depois |
 | `dados/processados/peers_longo.csv` | As 21 tabelas da PEERS em formato longo, com CV e IC 95% |
 | `dados/processados/peers_taxas_renda.csv` | Taxas por classe de renda usadas na Tela 2 |
+| `dados/processados/bairros.geojson` | Contornos dos bairros usados no mapa da Tela 1 |
+
+A malha de bairros vem do [servidor de mapas da Prefeitura](https://gis-smamus.portoalegre.rs.gov.br/server/rest/services/01_PUBLICACOES/bairros_2016/MapServer) (limites da Lei 12.112/2016) e fica salva em `dados/originais/bairros/bairros_2016.geojson`.
 
 ## Relatório do dashboard
 

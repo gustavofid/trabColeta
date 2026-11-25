@@ -56,6 +56,14 @@ def metadados_peers() -> tuple[str, str]:
     return coleta["url"], data
 
 
+def malha_bairros() -> dict | None:
+    """Contornos dos bairros gerados por scripts/mapa_bairros.py, se existirem."""
+    arquivo = DADOS / "processados" / "bairros.geojson"
+    if not arquivo.exists():
+        return None
+    return json.loads(arquivo.read_text(encoding="utf-8"))
+
+
 def curva_populacao(inct: pd.DataFrame) -> pd.Series:
     return inct.groupby("nivel_m")["affected_population"].sum()
 

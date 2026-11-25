@@ -13,6 +13,7 @@ from dados import (
     curva_populacao,
     impactos_do_evento,
     ler_processado,
+    malha_bairros,
     metadados_peers,
     percentuais_da_tabela,
     populacao_no_recorde,
@@ -27,6 +28,7 @@ LARANJA = "#A14D25"
 CINZA = "#627686"
 
 ler_csv = st.cache_data(show_spinner=False)(ler_processado)
+ler_malha = st.cache_data(show_spinner=False)(malha_bairros)
 
 
 def numero(valor: float, decimais: int = 0) -> str:
@@ -61,6 +63,36 @@ def barras_percentuais(
     figura.update_xaxes(range=[0, 100], ticksuffix="%", title="Percentual")
     figura.update_yaxes(automargin=True, autorange="reversed")
     return figura
+
+
+def mostrar_mapa(cenario: pd.DataFrame, malha: dict) -> None:
+    st.subheader("Mapa dos bairros por percentual de prédios afetados")
+    detalhes = ["percentage", "affected_buildings", "total_buildings"]
+    modelo = ("<b>%{location}</b><br>%{customdata[0]:.1f}% dos prédios"
+              "<br>%{customdata[1]:,.0f} de %{customdata[2]:,.0f} prédios<extra></extra>")
+    atingido = cenario["affected_buildings"].gt(0)
+    figura = go.Figure()
+    # Bairros não atingidos ficam em cinza, fora da escala de cor.
+    for linhas, escala, mostrar_escala in (
+        (cenario.loc[~atingido], [[0, "#D5DADD"], [1, "#D5DADD"]], False),
+        (cenario.loc[atingido], [[0, "#C6DBEA"], [0.5, "#6A9BBF"], [1, "#123A5A"]], True),
+    ):
+        figura.add_trace(go.Choroplethmap(
+            geojson=malha, featureidkey="properties.bairro", locations=linhas["bairro"],
+            z=linhas["percentage"], zmin=0, zmax=100, colorscale=escala,
+            showscale=mostrar_escala, colorbar=dict(title="% de prédios", ticksuffix="%"),
+            marker=dict(opacity=0.8, line=dict(color="#FFFFFF", width=0.8)),
+            customdata=linhas[detalhes].to_numpy(), hovertemplate=modelo,
+        ))
+    figura.update_layout(map=dict(style="carto-positron", center=dict(lat=-30.1, lon=-51.16), zoom=9.6))
+    mostrar_grafico(figura, 560)
+    metadados = malha["metadados"]
+    data = "/".join(reversed(metadados["data_coleta"].split("-")))
+    st.caption(
+        "Em cinza, bairros sem prédios afetados no nível escolhido. A cor indica o percentual "
+        "de prédios do bairro inteiro, não a área alagada. Limites: "
+        f"[Bairros oficiais (Lei 12.112/2016), Prefeitura de Porto Alegre]({metadados['fonte']}), coletados em {data}."
+    )
 
 
 def simular(inct: pd.DataFrame, curva: pd.Series) -> None:
@@ -117,6 +149,10 @@ def simular(inct: pd.DataFrame, curva: pd.Series) -> None:
         })
         st.dataframe(tabela, hide_index=True, use_container_width=True)
         st.caption("O ranking mostra até dez bairros. Um bairro é atingido quando tem ao menos um prédio afetado.")
+
+    malha = ler_malha()
+    if malha is not None:
+        mostrar_mapa(cenario, malha)
 
     st.subheader("Percentual de prédios afetados por bairro")
     por_percentual = atingidos.sort_values(["percentage", "bairro"], ascending=[False, True])
