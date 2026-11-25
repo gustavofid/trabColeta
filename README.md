@@ -22,10 +22,10 @@ O objetivo é propor uma alternativa mais rápida e clara à ferramenta [Flood -
 
 - [x] **Fase 1 – Levantamento de bases** (28/10): [`relatorios/base_dados.pdf`](relatorios/base_dados.pdf)
 - [x] **Fase 2 – Dados limpos e EDA** (09/11): [`relatorios/limpeza_dados.pdf`](relatorios/limpeza_dados.pdf), [`notebooks/eda.ipynb`](notebooks/eda.ipynb), wireframes em [`relatorios/wireframes/`](relatorios/wireframes/)
-- [ ] **Fase 3 – Dashboard** (24/11): telas em [`app/dashboard.py`](app/dashboard.py) e relatório em [PDF](relatorios/dashboard.pdf) e [LaTeX](relatorios/dashboard.tex). Publicação e entrega pendentes.
-- [ ] Versão final (24/11)
+- [x] **Fase 3 – Dashboard** (24/11): telas em [`app/dashboard.py`](app/dashboard.py) e relatório em [PDF](relatorios/dashboard.pdf) e [LaTeX](relatorios/dashboard.tex). Publicação e entrega pendentes.
+- [x] Versão final (24/11)
 
-Link do dashboard: _a publicar (Streamlit Community Cloud)_
+Link do dashboard: https://trabcoleta-5b3syqnnzkebdyfhsurm7o.streamlit.app
 
 ## Bases de dados
 
